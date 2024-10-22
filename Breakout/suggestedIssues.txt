@@ -4,9 +4,9 @@ FIXES:
 
 * Make the brick manager unwieldy as hell, put bricks in a DLL?
 
-* Make pausing more robust.
+* Make pausing more robust. 
 
-* Not resetting a value that should be reset on game start is a classic.
+* Not resetting a value that should be reset on game start is a classic. DONE
 
 
 

@@ -17,6 +17,7 @@ GameManager::GameManager(sf::RenderWindow* window)
 
 void GameManager::initialize()
 {
+    _lives = 3;
     _paddle = new Paddle(_window);
     _brickManager = new BrickManager(_window, this);
     _messagingSystem = new MessagingSystem(_window);
@@ -65,6 +66,10 @@ void GameManager::update(float dt)
     if (_pause)
     {
         return;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+    {
+        initialize();
     }
 
     // timer.

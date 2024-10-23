@@ -39,6 +39,7 @@ void GameManager::update(float dt)
     if (_lives <= 0)
     {
         _masterText.setString("Game over. Press R to play again...");
+        _masterText.setPosition(100, 400);
         _ball->gameOver();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
         {
@@ -49,6 +50,7 @@ void GameManager::update(float dt)
     if (_levelComplete)
     {
         _masterText.setString("Level completed.");
+        _masterText.setPosition(300, 400);
         return;
     }
     // pause and pause handling

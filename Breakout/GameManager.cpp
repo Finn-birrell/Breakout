@@ -10,7 +10,7 @@ GameManager::GameManager(sf::RenderWindow* window)
 {
     _font.loadFromFile("font/montS.ttf");
     _masterText.setFont(_font);
-    _masterText.setPosition(50, 400);
+    _masterText.setPosition(100, 400);
     _masterText.setCharacterSize(48);
     _masterText.setFillColor(sf::Color::Yellow);
 }

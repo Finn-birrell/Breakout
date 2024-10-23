@@ -38,8 +38,12 @@ void GameManager::update(float dt)
 
     if (_lives <= 0)
     {
-        _masterText.setString("Game over.");
-        return;
+        _masterText.setString("Game over. Press R to play again...");
+        _ball->gameOver();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+        {
+            initialize();
+        }
     }
     if (_levelComplete)
     {
@@ -100,6 +104,8 @@ void GameManager::loseLife()
     _ui->lifeLost(_lives);
 
     // TODO screen shake.
+    sf::Vector2i;
+ //   _window->setPosition();
 }
 
 void GameManager::render()
@@ -115,6 +121,7 @@ void GameManager::render()
 void GameManager::levelComplete()
 {
     _levelComplete = true;
+
 }
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }

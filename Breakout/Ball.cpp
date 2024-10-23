@@ -3,7 +3,7 @@
 
 Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     : _window(window), _velocity(velocity), _gameManager(gameManager),
-    _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _direction({1,1})
+    _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _direction({ 1,1 }), _gameEnd(false)
 {
     _sprite.setRadius(RADIUS);
     _sprite.setFillColor(sf::Color::Cyan);
@@ -40,9 +40,12 @@ void Ball::update(float dt)
         _sprite.setFillColor(sf::Color(flicker, flicker / 2, 0)); // Orange flickering color
     }
 
+    
     // Update position with a subtle floating-point error
-    _sprite.move(_direction * _velocity * dt);
-
+    if (!_gameEnd)
+    {
+        _sprite.move(_direction * _velocity * dt);
+    }
     // check bounds and bounce
     sf::Vector2f position = _sprite.getPosition();
     sf::Vector2u windowDimensions = _window->getSize();
@@ -113,4 +116,13 @@ void Ball::setFireBall(float duration)
     }
     _isFireBall = false;
     _timeWithPowerupEffect = 0.f;    
+}
+void Ball::gameOver()
+{
+    _gameEnd = true;
+}
+
+void Ball::setRadius()
+{
+    _sprite.setRadius(_radius/2);
 }

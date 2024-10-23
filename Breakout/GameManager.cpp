@@ -43,6 +43,7 @@ void GameManager::update(float dt)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
         {
             initialize();
+            _masterText.setString("");
         }
     }
     if (_levelComplete)

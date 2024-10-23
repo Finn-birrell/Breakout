@@ -1,9 +1,11 @@
 #include "BrickManager.h"
 #include "GameManager.h"
 
+
 BrickManager::BrickManager(sf::RenderWindow* window, GameManager* gameManager)
-    : _window(window), _gameManager(gameManager)
+    : _window(window), _gameManager(gameManager), _particles(1000)
 {
+
 }
 
 void BrickManager::createBricks(int rows, int cols, float brickWidth, float brickHeight, float spacing)
@@ -25,20 +27,28 @@ void BrickManager::createBricks(int rows, int cols, float brickWidth, float bric
 
 void BrickManager::render()
 {
+    sf::Time elapsed = clock.restart();
     for (auto& brick : _bricks) {
         brick.render(*_window);
-    }
+    }  
+
+    _particles.update(elapsed);
+    _window->draw(_particles);
 }
 
 int BrickManager::checkCollision(sf::CircleShape& ball, sf::Vector2f& direction)
 {
+   
     int collisionResponse = 0;  // set to 1 for horizontal collision and 2 for vertical.
     for (auto& brick : _bricks) {
         if (!brick.getBounds().intersects(ball.getGlobalBounds())) continue;    // no collision, skip.
-
+    
+       
         sf::Vector2f ballPosition = ball.getPosition();
         float ballY = ballPosition.y + 0.5f * ball.getGlobalBounds().height;
         sf::FloatRect brickBounds = brick.getBounds();
+
+
 
         // default vertical bounce (collision is top/bottom)
         collisionResponse = 2;
@@ -48,6 +58,16 @@ int BrickManager::checkCollision(sf::CircleShape& ball, sf::Vector2f& direction)
 
         // Mark the brick as destroyed (for simplicity, let's just remove it from rendering)
         // In a complete implementation, you would set an _isDestroyed flag or remove it from the vector
+
+        sf::Vector2f BrickCentre;
+        BrickCentre.x = brickBounds.getSize().x / 2;
+        BrickCentre.y = brickBounds.getSize().y / 2;
+        
+        sf::Vector2f EmitterPos;
+        EmitterPos = brickBounds.getPosition() + BrickCentre;
+        _particles.setEmitter(EmitterPos);
+     
+
         brick = _bricks.back();
         _bricks.pop_back();
         break;

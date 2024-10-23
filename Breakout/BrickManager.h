@@ -2,7 +2,10 @@
 #include <vector>
 #include "Brick.h"
 #include <SFML/Graphics.hpp>
-
+#include "ParticleSystem.h"
+#include <vector>
+#include <cmath>
+#include <random>
 class GameManager;
 
 class BrickManager {
@@ -11,7 +14,8 @@ public:
     void createBricks(int rows, int cols, float brickWidth, float brickHeight, float spacing);
     void render();
     int checkCollision(sf::CircleShape& ball, sf::Vector2f& direction);
-
+    ParticleSystem _particles;
+    sf::Clock clock;
 private:
     std::vector<Brick> _bricks;
     sf::RenderWindow* _window;

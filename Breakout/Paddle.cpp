@@ -65,3 +65,4 @@ void Paddle::setWidth(float coeff, float duration)
     float newX = _sprite.getPosition().x + (_width - PADDLE_WIDTH) / 2;
     _sprite.setPosition(newX, _sprite.getPosition().y);
 }
+
